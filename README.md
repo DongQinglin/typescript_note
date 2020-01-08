@@ -10,8 +10,8 @@
         git remote -v
         git remote set-url origin URL
         git remote add origin ...git
-        git stash
-        git pull --rebase origin master
+        git stash// 藏
+        git pull --rebase origin master// 重新指定
         git push -u origin master
         touch .gitignore
         .idea
