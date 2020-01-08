@@ -1,5 +1,5 @@
 // this is app.js. Myprogram will start with here.
-//
+// 导入自定义模块
 
 import {Student} from "./Student";
 

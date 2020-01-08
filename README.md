@@ -39,3 +39,41 @@
 
         npm run build
         npm run app
+        
+## 启动类
+代码编写
+        
+       - Student.ts
+       interface Person {
+           firstName: string;
+           lastName: string;
+       }
+       
+       export class Student implements Person{
+           firstName: string;
+           lastName: string;
+           fullName: string;
+           constructor(firstName: string, lastName: string){
+               this.fullName = firstName + " " + lastName;
+           }
+           // 不稳定的新特性不予使用 使用public相当于创建于成员变量相同的方法变量
+           // constructor(public firstName: string, public lastName: string) {
+           //     this.fullName = firstName + " " + lastName;
+           // }
+       }
+       // 导出语句写法
+       // export { Student };
+       // export { Student as Stu }; 
+       
+       - app.ts
+       // this is app.js. Myprogram will start with here.
+       // 导入自定义模块
+       
+       import {Student} from "./Student";
+       
+       let pedro = new Student("董", "庆林");
+       const pedroFullname: string = pedro.fullName;
+       console.log(pedroFullname);
+       
+## 变量类型
+
