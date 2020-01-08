@@ -16,3 +16,4 @@
         touch .gitignore
         .idea
         *.iml
+        git rm -r -n
