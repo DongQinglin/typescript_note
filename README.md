@@ -17,3 +17,18 @@
         .idea
         *.iml
         git rm -r -n
+        
+2. typescript 编译器
+命令行方式
+
+        npm config set registry https://registry.npm.taobao.org
+        npm config set registry https://registry.npmjs.org
+        npm install -g cnpm --registry=https://registry.npm.taobao.org 
+        cnpm install -g typescript//安装tsc编译命令
+        tsc -v
+        
+3. typescript 编译器代码自动化配置
+
+    TscInit.ts 命令行编译执行
+        
+        tsc TscInit

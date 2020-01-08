@@ -1,0 +1,25 @@
+
+{
+  "name": "cn.pedro",
+  "version": "1.0.0",
+  "description": "Maked by Pedro.",
+  "main": "app.js",
+  "scripts": {
+    "test": "npm test",
+    "dev": "supervisor -w build ./build/server.js",
+    "build": "tsc"
+  },
+  "author": "qinglin",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^12.7.12",
+    "nodemon": "^1.19.3",
+    "ts-node": "^8.4.1",
+    "typescript": "^3.6.4"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.3",
+    "ts-node": "^8.4.1",
+    "typescript": "^3.6.4"
+  }
+}
