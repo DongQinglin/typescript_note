@@ -1,55 +1,43 @@
-import * as fs from 'fs';
-import * as path from 'path';
-
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const fs = require("fs");
+const path = require("path");
 class TscInit {
-    // 项目文件路径数组
-    projectDirs: string[];
-    // 项目配置文件数组
-    configFile: string[];
-    fs;
-    path;
-    private apptsPath: string;
-
-    constructor(){
+    constructor() {
         this.init();
         this.makeProjectDirs();
         this.makeConfigFile();
         this.makeAppTs();
-
     }
-
-
-    private init() {
+    init() {
         this.projectDirs = [
             // 'bulid',         //项目编译后的js代码,不需要,ts编译后会自动创建
-            'src',              //项目原始ts代码
-            'static',           //项目静态文件
+            'src',
+            'static',
             'static/scripts',
             'static/css',
             'static/assets',
-            'views',            //项目html文件
+            'views',
         ];
         this.configFile = [
-            'tsconfig.json',     //ts编译器配置文件
+            'tsconfig.json',
             'package.json'
         ];
         this.apptsPath = 'src/app.ts';
         this.fs = fs;
         this.path = path;
     }
-
-    private makeProjectDirs() {
+    makeProjectDirs() {
         for (const dirIndex in this.projectDirs) {
             const dir = this.projectDirs[dirIndex];
             this.fs.mkdirSync(dir);
             console.log(`mkdir ${dir} success.\n`);
         }
     }
-
-    private makeConfigFile() {
+    makeConfigFile() {
         for (const fileDir of this.configFile) {
-            let data: string;
-            if(fileDir === 'tsconfig.json'){
+            let data;
+            if (fileDir === 'tsconfig.json') {
                 data = `
 {
     "compilerOptions": {
@@ -69,7 +57,8 @@ class TscInit {
         "static"
     ]
 }`;
-            }else if(fileDir==='package.json'){
+            }
+            else if (fileDir === 'package.json') {
                 data = `
 {
   "name": "cn.pedro",
@@ -100,16 +89,12 @@ class TscInit {
     "ts-node": "^8.4.1",
     "typescript": "^3.6.4"
   }
-}`
+}`;
             }
-
             this.writeCommonFile(fileDir, data);
-
-
         }
     }
-
-    private makeAppTs() {
+    makeAppTs() {
         const fileDir = this.apptsPath;
         const data = `// this is app.js. Myprogram will start with here.
 
@@ -124,17 +109,16 @@ app.use(async ctx => {
 app.listen(3000);`;
         this.writeCommonFile(fileDir, data);
     }
-
-    writeCommonFile(fileDir: string, data: string) {
+    writeCommonFile(fileDir, data) {
         // 同步追加和写入文件
         // 只用一次写入，不存在效率问题
         try {
             fs.writeFileSync(fileDir, data);
             console.log(`Write file ${fileDir} success.\n`);
-        }catch (err) {
+        }
+        catch (err) {
             console.log('Something in file system is wrong, please check at : ', err);
         }
     }
 }
-
 new TscInit();

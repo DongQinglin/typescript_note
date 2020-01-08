@@ -33,3 +33,9 @@
         
         tsc TscInit
         node TscInit
+
+4. 实时编译和测试
+命令行方式
+
+        npm run build
+        npm run app

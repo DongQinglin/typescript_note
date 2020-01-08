@@ -6,8 +6,9 @@
   "main": "app.js",
   "scripts": {
     "test": "npm test",
-    "dev": "supervisor -w build ./build/server.js",
-    "build": "tsc"
+    "dev": "supervisor -w build ./build/app.js",
+    "build": "tsc",
+    "app": "node build/app.js"
   },
   "author": "qinglin",
   "license": "ISC",
