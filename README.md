@@ -13,3 +13,6 @@
         git stash
         git pull --rebase origin master
         git push -u origin master
+        touch .gitignore
+        .idea
+        *.iml
