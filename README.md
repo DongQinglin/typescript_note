@@ -32,3 +32,4 @@
     TscInit.ts 命令行编译执行
         
         tsc TscInit
+        node TscInit
