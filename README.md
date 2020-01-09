@@ -154,6 +154,8 @@
         let strLength: number = (someValue as string).length;
         
 ## 变量声明
+代码编写测试
+
 let和const是JavaScript里相对较新的变量声明方式。
 像我们之前提到过的，let在很多方面与var是相似的，
 但是可以帮助大家避免在JavaScript里常见一些问题。
@@ -173,3 +175,177 @@ let定义变量，而且请你尽管忽略javascript var变量提升的稀奇古
             console.log(tom);// 是我tom
         }
         console.log(tom);//我是tom
+## 接口和类型
+代码编写测试
+
+接口和类型有些古怪，匿名函数是最令程序员头疼的，请你一定要严格按照Java规范，
+否则你写出的代码，一段时间后连你自己也会看不懂，再多的注释也无济于事。
+
+        - app.ts
+        interfaceTest();
+        classTest();
+        
+        -interfaceTest.ts
+        export const interfaceTest = function () {
+            interface LabelledValue {
+                label: string;
+            }
+        
+            function printLabel(labelledObj: LabelledValue) {
+                console.log(labelledObj.label);
+            }
+        
+            let myObj = {size: 10, label: "Size 10 Object"};
+            // printLabel(myObj.size);//报错，没有size成员
+        
+            interface SquareConfig {
+                color?: string;
+                width?: number;
+            }
+            class Square{
+                color: string;
+                area: number;
+                constructor(color: string, area: number){
+                    this.area = area;
+                    this.color = color;
+                }
+            }
+            //  返回值类型
+            function createSquare(config: SquareConfig): Square{
+        
+                let newSquare = new Square("white", 100);
+                if (config.color) {
+                    newSquare.color = config.color;
+                }
+                if (config.width) {
+                    newSquare.area = config.width * config.width;
+                }
+                return newSquare;
+            }
+            // 不需要new，直接大括号
+        
+            let mySquare = createSquare(new class implements SquareConfig {
+                color: string = "black";
+                width: number;
+            });
+            console.log(mySquare);
+        
+            // 只读成员属性，一旦赋值不可更改
+            interface Point {
+                readonly x: number;
+                readonly y: number;
+            }
+            let p1: Point = new class implements Point {
+                readonly x: number = 6;
+                readonly y: number = 7;
+            }
+            // p1.x = 5; // error!
+        
+            // 接口在这里的表现很是奇怪
+            // 匿名方法只能有一个，以最后的为准
+            // 方法的定义有点古怪。()括号内是参数列表，：冒号后是返回值类型
+        
+        
+        
+            interface SearchFunction{
+                search(source: string, subString: string): boolean;
+            }
+            class SimpleSearch implements SearchFunction{
+                search(source: string, subString: string): boolean {
+                    let result = source.search(subString);
+                    return result > -1;
+                }
+            }
+        
+            let mySearch: SearchFunction;
+            mySearch = new SimpleSearch();
+            const result: boolean = mySearch.search("hello","e");
+            console.log(result);
+        
+        }
+        
+        - classTest.ts
+        export const classTest = function () {
+        
+            class Animal {
+                move(distanceInMeters: number = 0) {
+                    console.log(`Animal moved ${distanceInMeters}m.`);
+                }
+            }
+        
+            class Dog extends Animal {
+                bark() {
+                    console.log('Woof! Woof!');
+                }
+            }
+            const dog = new Dog();
+            dog.bark();
+            dog.move(10);
+            dog.bark();
+        
+            // get和set
+            let passcode = "secret passcode";
+        
+            class Employee {
+                private _fullName: string;
+        
+                get fullName(): string {
+                    return this._fullName;
+                }
+        
+                set fullName(newName: string) {
+                    if (passcode && passcode == "secret passcode") {
+                        this._fullName = newName;
+                    }
+                    else {
+                        console.log("Error: Unauthorized update of employee!");
+                    }
+                }
+            }
+        
+            let employee = new Employee();
+            employee.fullName = "Bob Smith";
+            if (employee.fullName) {
+                console.log(employee.fullName);
+            }
+        
+            //只读
+            class Octopus {
+                readonly name: string;
+                readonly numberOfLegs: number = 8;
+                constructor (theName: string) {
+                    this.name = theName;
+                }
+            }
+            let dad = new Octopus("Man with the 8 strong legs");
+            // dad.name = "Man with the 3-piece suit"; // 错误! name 是只读的.
+            //静态， 可以使用类名访问
+            class Grid {
+                static origin = {x: 0, y: 0};
+                calculateDistanceFromOrigin(point: {x: number; y: number;}) {
+                    let xDist = (point.x - Grid.origin.x);
+                    let yDist = (point.y - Grid.origin.y);
+                    return Math.sqrt(xDist * xDist + yDist * yDist) / this.scale;
+                }
+                constructor (public scale: number) { }
+            }
+        
+            let grid1 = new Grid(1.0);  // 1x scale
+            let grid2 = new Grid(5.0);  // 5x scale
+        
+            console.log(grid1.calculateDistanceFromOrigin({x: 10, y: 10}));
+            console.log(grid2.calculateDistanceFromOrigin({x: 10, y: 10}));
+        
+            // 抽象类
+            abstract class ElectricalAppliance {
+                abstract makeSound(): void;
+                move(): void {
+                    console.log('roaming the earch...');
+                }
+            }
+        }
+
+        
+
+        
+
